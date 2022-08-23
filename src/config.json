@@ -1,0 +1,4 @@
+{
+    "VUE_APP_PORT": "$VUE_APP_PORT",
+    "VUE_APP_BACKEND_URL": "$VUE_APP_BACKEND_URL"
+  }

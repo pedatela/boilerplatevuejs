@@ -1,0 +1,27 @@
+name: Staging CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build_prod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use NodeJs
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.16.0"
+      - run: npm install
+      # - run: npm test -- --coverage
+      #   env:
+      #     CI: true
+      - name: Create Release
+        if: github.event_name == 'push'
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+

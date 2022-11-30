@@ -1,8 +1,8 @@
 import axios from 'axios'
-import config from '../config.json'
+// import config from '../config.json'
 
 const apiRequest = axios.create({
-    baseURL: `${config.VUE_APP_BACKEND_URL}:${config.VUE_APP_PORT}`
+    baseURL: 'http://ec2-1617047693.us-east-2.elb.amazonaws.com/api'
 })
 
 //HealthCheck

@@ -1,7 +1,7 @@
 
 <template>
   <main>
-    <h1>Bem vindo a Pagina inicial</h1>
+    <h1>Bem vindo a Pagina inicial Estou fazendo alteraçao</h1>
     <div>
       <h4>Server Info</h4>
       <ul>

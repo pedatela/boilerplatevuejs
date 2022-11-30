@@ -5,7 +5,7 @@
     <div>
       <h4>Server Info</h4>
       <ul>
-        <li>UpTime: {{ healtCheck.uptime }} segundos</li>
+        <li>UpTime: {{ healtCheck.uptime }} segundos teste</li>
         <li>Message: {{ healtCheck.message }}</li>
         <li>Date: {{ healtCheck.date }}</li>
       </ul>

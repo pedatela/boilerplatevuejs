@@ -18,6 +18,21 @@
         <td>Mexico</td>
       </tr>
       <tr>
+        <td>Centro comercial Moctezuma</td>
+        <td>Francisco Chang</td>
+        <td>Mexico</td>
+      </tr>
+      <tr>
+        <td>Centro comercial Moctezuma</td>
+        <td>Francisco Chang</td>
+        <td>Mexico</td>
+      </tr>
+      <tr>
+        <td>Centro comercial Moctezuma</td>
+        <td>Francisco Chang</td>
+        <td>Mexico</td>
+      </tr>
+      <tr>
         <td>Ernst Handel</td>
         <td>Roland Mendel</td>
         <td>Austria</td>
@@ -41,19 +56,20 @@
   </div>
 </template>
 <style scoped>
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
 
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 </style>

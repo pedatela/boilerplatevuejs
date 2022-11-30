@@ -1,65 +1,27 @@
-name: Deploy to ECS
-
-# Controls when the workflow will run
+name: Create Release
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  pull_request:
+    branches: [main]
   push:
-    branches: [ "main" ]
-  pull_request: 
-    branches: [ "main" ]
+    branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  deploy_to_ecs:
-    # The type of runner that the job will run on
+  build_prod:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - uses: actions/checkout@v2
+      - name: Use NodeJs
+        uses: actions/setup-node@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
+          node-version: "16.16.0"
+      - run: npm install
+      # - run: npm test -- --coverage
+      #   env:
+      #     CI: true
+      - name: Create Release
+        if: github.event_name == 'push'
+        run: npx semantic-release
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: boilerplatevuejs
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-      # Runs a single command using the runners shell
-      - name: Download task definition
-        run: |
-          aws ecs describe-task-definition --task-definition vuejsboilerplate --query taskDefinition > task-definition.json
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: vuejs
-          image: ${{ steps.build-image.outputs.image }}
+          GITHUB_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: servico-frontend3
-          cluster: ec2
-          wait-for-service-stability: true

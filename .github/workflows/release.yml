@@ -47,5 +47,5 @@ jobs:
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: servico-frontend
-          cluster: ec2
+          cluster: ec2-new
           wait-for-service-stability: true

@@ -1,33 +1,45 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-2:350905904066:task-definition/vuejsboilerplate:9",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-2:350905904066:task-definition/vuejsboilerplate:20",
     "containerDefinitions": [
         {
             "name": "vuejs",
-            "image": "350905904066.dkr.ecr.us-east-2.amazonaws.com/boilerplatevuejs:v1.0.2",
+            "image": "350905904066.dkr.ecr.us-east-2.amazonaws.com/boilerplatevuejs:v1.0.10",
             "cpu": 0,
+            "links": [],
             "portMappings": [
                 {
+                    "name": "vuejs-80-tcp",
                     "containerPort": 80,
                     "hostPort": 0,
                     "protocol": "tcp"
                 }
             ],
             "essential": true,
-            "environment": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "secrets": [
+            "entryPoint": [],
+            "command": [],
+            "environment": [
                 {
                     "name": "VUE_APP_BACKEND_URL",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-2:350905904066:secret:teste-qVQ9M5:VUE_APP_BACKEND_URL::"
+                    "value": "http://ec2-880751792.us-east-2.elb.amazonaws.com/api"
                 }
-            ]
+            ],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [],
+            "dnsServers": [],
+            "dnsSearchDomains": [],
+            "extraHosts": [],
+            "dockerSecurityOptions": [],
+            "dockerLabels": {},
+            "ulimits": [],
+            "systemControls": []
         }
     ],
     "family": "vuejsboilerplate",
     "executionRoleArn": "arn:aws:iam::350905904066:role/ecsTaskExecutionRole",
     "networkMode": "bridge",
-    "revision": 9,
+    "revision": 20,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -35,12 +47,17 @@
             "name": "com.amazonaws.ecs.capability.ecr-auth"
         },
         {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
             "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
         }
     ],
     "placementConstraints": [],
     "compatibilities": [
-        "EXTERNAL",
         "EC2"
     ],
     "requiresCompatibilities": [
@@ -52,7 +69,16 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2022-11-30T18:47:41.571Z",
-    "registeredBy": "arn:aws:iam::350905904066:user/lucas_pedatela",
-    "tags": []
+    "registeredAt": "2022-12-01T23:10:17.315Z",
+    "registeredBy": "arn:aws:iam::350905904066:root",
+    "tags": [
+        {
+            "key": "ecs:taskDefinition:createdFrom",
+            "value": "ecs-console-v2"
+        },
+        {
+            "key": "ecs:taskDefinition:stackId",
+            "value": "arn:aws:cloudformation:us-east-2:350905904066:stack/ECS-Console-V2-TaskDefinition-ae8aca75-e179-4f87-9ed0-1b65b6206c9e/4f751160-71cd-11ed-9335-06d99a1f9e02"
+        }
+    ]
 }
